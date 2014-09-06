@@ -1,7 +1,9 @@
 ﻿Shader "Custom/BlobShader" {
 Properties {
-	_Color ("Main Color", Color) = (1,1,1,0.1)
-	_MainTex ("Base (RGB), RefStrength (A)", 2D) = "white" {}
+	_Reflection ("Reflection", Float) = 0.3
+	_Transparency ("Transparency", Float) = 0.2
+	_TranspFalloff ("Transparency Falloff", Float) = 5
+	_MainTex ("Base (RGB), Alpha (A)", 2D) = "white" {}
 	_Cube ("Reflection Cubemap", Cube) = "" { TexGen CubeReflect }
 }
 
@@ -53,18 +55,19 @@ v2f vert(appdata_tan v)
 	return o; 
 }
 
-uniform sampler2D _BumpMap;
 uniform sampler2D _MainTex;
 uniform samplerCUBE _Cube;
-uniform fixed4 _ReflectColor;
-uniform fixed4 _Color;
+uniform float _Reflection;
+uniform float _Transparency;
+uniform float _TranspFalloff;
 
 fixed4 frag (v2f i) : SV_Target
 {
 	fixed4 texcol = tex2D(_MainTex,i.uv);
-	texcol = fixed4(0,1,0,.2);
-	
-	// transform normal to world space (code to allow normal map later)
+
+	// lighting vectors
+	half3 wv = -normalize(i.I);
+	half3 wl = normalize(_WorldSpaceLightPos0);
 	half3 normal = half3(0.f,0.f,1.f);
 	half3 wn;
 	wn.x = dot(i.TtoW0, normal);
@@ -72,17 +75,23 @@ fixed4 frag (v2f i) : SV_Target
 	wn.z = dot(i.TtoW2, normal);
 	
 	// add diffuse to base layer
-	fixed4 col = texcol;
-	col.rgb *= saturate(dot(wn, normalize(_WorldSpaceLightPos0)));	
+	fixed4 col = texcol * saturate(dot(wn, wl));
 	
-	// calculate reflection vectors in world space
-	half r0 = 0.2;
-	half fresnel = r0 + (1-r0)*pow(saturate(dot(i.I, wn)), 5);
+	// pseudo-Fresnel for transparency to see bomb
+	half r0 = half(_Transparency);
+	half fresnel = lerp(r0,1, pow(saturate(dot(wv, wn)), _TranspFalloff));
+	col.a = saturate(1-fresnel);
+	
+	// calculate reflection
+	r0 = _Reflection;
+	fresnel = lerp(r0, 1, pow(1 - saturate(dot(wv, wn)), 5));
 	half3 refl = reflect(i.I, wn);
 	
 	// blend surface color with reflection
 	fixed4 reflColor = texCUBE(_Cube, refl);
-	return lerp(col, reflColor, saturate(fresnel));
+	col = lerp(col, reflColor, saturate(fresnel));
+	
+	return col;
 }
 ENDCG  
 		} 
