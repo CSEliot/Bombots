@@ -7,10 +7,92 @@ ModelImporter:
     100002: //RootNode
     100004: Globby
     100006: Globby_001
+    100008: Bomb_0
+    100010: Butt
+    100012: CenterBone
+    100014: Drop1
+    100016: Drop2
+    100018: Drop3
+    100020: Drop4
+    100022: Drop5
+    100024: Drop6
+    100026: Drop7
+    100028: Drop8
+    100030: FatBot
+    100032: FatMid
+    100034: FatSide_L
+    100036: FatSide_R
+    100038: FX
+    100040: Globby_002
+    100042: Globby_Bones
+    100044: Hand1_L
+    100046: Hand1_R
+    100048: Hand2_L
+    100050: Hand2_R
+    100052: Head
+    100054: Jaw
+    100056: Mid
+    100058: Neck
+    100060: Plane
+    100062: Sparks1
+    100064: Sparks10
+    100066: Sparks2
+    100068: Sparks3
+    100070: Sparks4
+    100072: Sparks5
+    100074: Sparks6
+    100076: Sparks7
+    100078: Sparks8
+    100080: Sparks9
+    100082: Splatter
+    100084: Tail
+    100086: TailFat
+    100088: UpMouth
     400000: Bomb
     400002: //RootNode
     400004: Globby
     400006: Globby_001
+    400008: Bomb_0
+    400010: Butt
+    400012: CenterBone
+    400014: Drop1
+    400016: Drop2
+    400018: Drop3
+    400020: Drop4
+    400022: Drop5
+    400024: Drop6
+    400026: Drop7
+    400028: Drop8
+    400030: FatBot
+    400032: FatMid
+    400034: FatSide_L
+    400036: FatSide_R
+    400038: FX
+    400040: Globby_002
+    400042: Globby_Bones
+    400044: Hand1_L
+    400046: Hand1_R
+    400048: Hand2_L
+    400050: Hand2_R
+    400052: Head
+    400054: Jaw
+    400056: Mid
+    400058: Neck
+    400060: Plane
+    400062: Sparks1
+    400064: Sparks10
+    400066: Sparks2
+    400068: Sparks3
+    400070: Sparks4
+    400072: Sparks5
+    400074: Sparks6
+    400076: Sparks7
+    400078: Sparks8
+    400080: Sparks9
+    400082: Splatter
+    400084: Tail
+    400086: TailFat
+    400088: UpMouth
     2300000: Bomb
     2300002: Globby
     2300004: Globby_001
@@ -20,8 +102,18 @@ ModelImporter:
     4300000: Bomb
     4300002: Globby
     4300004: Globby_001
+    4300006: Globby_002
+    4300008: Plane
     7400000: Default Take
+    7400002: Globby_Death
+    7400004: Globby_Idle
+    7400006: Globby_Scooch
     9500000: //RootNode
+    13700000: Bomb
+    13700002: Globby
+    13700004: Globby_001
+    13700006: Globby_002
+    13700008: Plane
   materials:
     importMaterials: 1
     materialName: 0
