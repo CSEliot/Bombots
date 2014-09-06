@@ -34,7 +34,7 @@ public class Commands : MonoBehaviour {
 
 	}
 
-	void addCommand(int speed, int time, bool rotationCommand, int rotationDegree){
+	public void addCommand(int speed, int time, bool rotationCommand, int rotationDegree){
 		commandList.Add(new Command(speed, time, rotationCommand, rotationDegree));
 		ListSize += 1;
 	}
