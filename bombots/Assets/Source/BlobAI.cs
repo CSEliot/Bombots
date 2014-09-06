@@ -39,7 +39,7 @@ public class BlobAI : MonoBehaviour {
 
 		//if the final command has ended AND there are none stored in commandList remaining, idle
 		if(timeRightNow.CompareTo(timeToEnd) > 0){
-			currentSpeed = 0;
+			currentSpeed = 0; 
 			currentState = (int)States.Nothing;
 		}
 
@@ -64,6 +64,21 @@ public class BlobAI : MonoBehaviour {
 			//copy down the time we received the command.
 			timeRightNow = DateTime.Now;
 			timeToEnd = timeRightNow .AddSeconds(commandList.getCurrentCommand().Time);
+		}
+
+		switch(currentState)
+		{
+		case States.Moving:
+			this.transform.Translate(Vector3.forward*currentSpeed);
+			break;
+		case States.Nothing:
+			break;
+		case States.Rotating:
+			break;
+		case States.Waiting:
+			break;
+		default:
+			break;
 		}
 
 	}
