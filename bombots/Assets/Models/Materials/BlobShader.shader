@@ -1,5 +1,6 @@
 ﻿Shader "Custom/BlobShader" {
 Properties {
+	_Color ("Color", Color) = (0,1,0,0)
 	_Reflection ("Reflection", Float) = 0.3
 	_Transparency ("Transparency", Float) = 0.2
 	_TranspFalloff ("Transparency Falloff", Float) = 5
@@ -57,6 +58,7 @@ v2f vert(appdata_tan v)
 
 uniform sampler2D _MainTex;
 uniform samplerCUBE _Cube;
+uniform float4 _Color;
 uniform float _Reflection;
 uniform float _Transparency;
 uniform float _TranspFalloff;
@@ -64,6 +66,10 @@ uniform float _TranspFalloff;
 fixed4 frag (v2f i) : SV_Target
 {
 	fixed4 texcol = tex2D(_MainTex,i.uv);
+	
+	// adjust color
+	if (texcol.g > texcol.r && texcol.g > texcol.b)
+		texcol.rgb = _Color.rgb * texcol.g;
 
 	// lighting vectors
 	half3 wv = -normalize(i.I);
