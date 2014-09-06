@@ -7,6 +7,7 @@ Properties {
 
 Category {
 	Tags { "Queue"="Transparent" "RenderType"="Transparent" "IgnoreProjector"="True" }
+    Blend SrcAlpha OneMinusSrcAlpha
 	LOD 250
 	
 	// ------------------------------------------------------------------
@@ -61,31 +62,27 @@ uniform fixed4 _Color;
 fixed4 frag (v2f i) : SV_Target
 {
 	fixed4 texcol = tex2D(_MainTex,i.uv);
+	texcol = fixed4(0,1,0,.2);
 	
-	// transform normal to world space
+	// transform normal to world space (code to allow normal map later)
 	half3 normal = half3(0.f,0.f,1.f);
 	half3 wn;
 	wn.x = dot(i.TtoW0, normal);
 	wn.y = dot(i.TtoW1, normal);
 	wn.z = dot(i.TtoW2, normal);
 	
-	// calculate reflection and refraction vectors in world space
-	half _RefractIdx = 1.5;
-	half r0 = (_RefractIdx-1)/(_RefractIdx+1); r0 *= r0;
-	half fresnel = r0 + (1-r0)*pow(max(0,dot(i.I, wn)), 5);
-	half3 refl = reflect(i.I, wn);
-	half3 refr = refract(i.I, wn, _RefractIdx);
+	// add diffuse to base layer
+	fixed4 col = texcol;
+	col.rgb *= saturate(dot(wn, normalize(_WorldSpaceLightPos0)));	
 	
-	fixed3 c = texcol.rgb;
-	fixed3 reflColor = lerp(fixed3(.5,.5,0), fixed3(.5,.7,.9), .5*refl.y+.5);
-	fixed3 refrColor = lerp(fixed3(.5,.5,0), fixed3(.5,.7,.9), .5*refr.y+.5);
-	c = lerp(refrColor, c, fresnel);
-	c = lerp(c, reflColor, fresnel);
-	c = reflColor;
-	//fixed3 reflColor = texCUBE(_Cube, refl).rgb;
-	//fixed3 refrColor = texCUBE(_Cube, refr).rgb;
-	//return fixed4(.5,.5,.5,0.1);
-	return fixed4(c, fresnel);
+	// calculate reflection vectors in world space
+	half r0 = 0.2;
+	half fresnel = r0 + (1-r0)*pow(saturate(dot(i.I, wn)), 5);
+	half3 refl = reflect(i.I, wn);
+	
+	// blend surface color with reflection
+	fixed4 reflColor = texCUBE(_Cube, refl);
+	return lerp(col, reflColor, saturate(fresnel));
 }
 ENDCG  
 		} 
