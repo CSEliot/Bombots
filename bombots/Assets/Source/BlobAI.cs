@@ -5,9 +5,10 @@ using System;
 
 public class BlobAI : MonoBehaviour {
 
-	private Vector3 targetRotation;
+	private float targetRotation;
 
 	private float currentSpeed;
+	private float currentRotation;
 
 	enum States { Moving, Rotating, Waiting, Nothing};
 	private int currentState;
@@ -21,8 +22,9 @@ public class BlobAI : MonoBehaviour {
 	void Start () {
 		currentState= (int)States.Nothing;
 		currentSpeed = 0f;
+		currentRotation = 0f;
 		timeToEnd  = DateTime.Now;
-		//targetRotation = transform.rotation;
+		targetRotation = 0f;
 		commandList = new Commands();
 	
 	}
@@ -55,7 +57,7 @@ public class BlobAI : MonoBehaviour {
 			}else if(tempCommand.RotationCommand == true){
 				currentState = (int)States.Rotating;
 				currentSpeed = 0f;
-				//targetRotation = something
+				targetRotation = 90*tempCommand.RotationDegree;
 			}else{
 				currentState = (int)States.Moving;
 				currentSpeed = tempCommand.Speed;
@@ -68,14 +70,26 @@ public class BlobAI : MonoBehaviour {
 
 		switch(currentState)
 		{
-		case States.Moving:
+		case (int)States.Moving:
 			this.transform.Translate(Vector3.forward*currentSpeed);
+			if(timeToEnd.CompareTo(timeRightNow) > 0){
+				currentState = (int)States.Nothing;
+				currentSpeed = 0;
+			}
 			break;
-		case States.Nothing:
+		case (int)States.Nothing:
 			break;
-		case States.Rotating:
+		case (int)States.Rotating: 
+			currentRotation = Mathf.Lerp(currentRotation, targetRotation, (Time.deltaTime * 2));
+			this.transform.eulerAngles = new Vector3(currentRotation, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
+			if (Mathf.Floor(currentRotation) == targetRotation){
+				currentState = (int)States.Nothing;
+			}
 			break;
-		case States.Waiting:
+		case (int)States.Waiting:
+			if(timeToEnd.CompareTo(timeRightNow) > 0){
+				currentState = (int)States.Nothing;
+			}
 			break;
 		default:
 			break;
