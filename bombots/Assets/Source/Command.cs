@@ -5,10 +5,10 @@ public struct Command {
 
 
 	public Command(int speed, int time, bool rotationCommand, int rotationDegree){
-		this.Speed = speed;
-		this.Time = time;
-		this.RotationCommand = rotationCommand;
-		this.RotationDegree = rotationDegree;
+		Speed = speed;
+		Time = time;
+		RotationCommand = rotationCommand;
+		RotationDegree = rotationDegree;
 	}
 
 	public int Speed {get;private set;}
