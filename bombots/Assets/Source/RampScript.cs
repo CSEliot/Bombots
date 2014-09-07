@@ -4,9 +4,16 @@ using System.Collections;
 public class RampScript : MonoBehaviour {
 	public float targetAngle;
 
+	private GameObject laser;	// gate laser to turn on and off
+	private Vector3 pivot;		// pivot point in world space
+	private float probability;	// chance to move
+
 	// Use this for initialization
 	void Start () {
 		targetAngle = -22.5f;
+		probability = 0.5f;
+		laser = GameObject.Find ("gate/laser_004");
+		pivot = new Vector3(0,0,-1);
 	}
 	
 	// Update is called once per frame
@@ -18,10 +25,8 @@ public class RampScript : MonoBehaviour {
 
 		// change direction
 		float angleMag = Mathf.Abs (angleOffset);
-		if (angleMag < 0.001f && Random.value < 0.5f*Time.deltaTime) {
+		if (angleMag < 0.001f && Random.value < probability*Time.deltaTime) {
 			targetAngle = -targetAngle;
-
-			GameObject laser = GameObject.Find ("/gate/laser_004");
 			laser.renderer.enabled = targetAngle > 0;
 		}
 
@@ -29,7 +34,6 @@ public class RampScript : MonoBehaviour {
 		                          -angleMag, angleMag);
 
 		// rotate toward target
-		Vector3 pivot = new Vector3(0,0,-1);
 		transform.RotateAround(pivot, Vector3.right, angleOffset);
 
 	}
