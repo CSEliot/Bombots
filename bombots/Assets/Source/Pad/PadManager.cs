@@ -6,15 +6,13 @@ public class PadManager : MonoBehaviour
 {
 
   protected int currentPad;
-  protected List<PadController> pads;
+  protected PadController[] pads;
 
   // Use this for initialization
   void Start()
   {
     GameObject[] padObjects = GameObject.FindGameObjectsWithTag ( "Pad" );
-
-    pads = new List<PadController> ( padObjects.Length );
-    
+    pads = new PadController[padObjects.Length];
     if ( padObjects.Length > 0 )
     {
       int i = 0;
@@ -22,7 +20,7 @@ public class PadManager : MonoBehaviour
       {
         PadController padController = padObject.GetComponent<PadController> ();
         padController.PadNumber = i;
-        pads.Add ( padController );
+        pads[padController.padIndex] = padController;
 
         i++;
       }
@@ -41,10 +39,10 @@ public class PadManager : MonoBehaviour
 
   public void AdvanceToNextPad()
   {
-    if (pads.Count > 0)
+    if (pads.Length > 0)
     {
       currentPad++;
-	  if (currentPad >= pads.Count)
+	  if (currentPad >= pads.Length)
 	  {
         pads[ currentPad ].SetNext ();
 	  }
@@ -58,7 +56,7 @@ public class PadManager : MonoBehaviour
 
   public void AddCommandToCurrentPad( int speed, int time, bool rotationCommand, int rotationDegree )
   {
-    if (pads.Count > 0)
+    if (pads.Length > 0)
     {
       pads[ currentPad ].AddCommand ( speed, time, rotationCommand, rotationDegree );
     }
