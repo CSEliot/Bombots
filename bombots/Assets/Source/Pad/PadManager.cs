@@ -8,6 +8,12 @@ public class PadManager : MonoBehaviour
   protected int currentPad;
   protected PadController[] pads;
 
+  public bool hasCompleted
+  {
+    get;
+    private set;
+  }
+
   // Use this for initialization
   void Start()
   {
@@ -26,32 +32,45 @@ public class PadManager : MonoBehaviour
       }
 
       currentPad = 0;
-
-      pads[ currentPad ].SetNext ();
     }
   }
   
   // Update is called once per frame
   void Update()
   {
-  
+    if (!hasCompleted)
+    {
+      UpdateCurrentPad();
+    }
   }
 
-  public void AdvanceToNextPad()
+  protected void UpdateCurrentPad()
   {
-    if (pads.Length > 0)
+    PadController nextPad = GetNextPad();
+
+    if (nextPad == null)
+    {
+      hasCompleted = true;
+    }
+    else if (nextPad.hasBeenReached)
     {
       currentPad++;
-	  if (currentPad >= pads.Length)
-	  {
-        pads[ currentPad ].SetNext ();
-	  }
     }
   }
 
   public PadController GetCurrentPad()
   {
     return pads[ currentPad ];
+  }
+
+  public PadController GetNextPad()
+  {
+    if (currentPad + 1 < pads.Length)
+    {
+      return pads[currentPad + 1];
+    }
+
+    return null;
   }
 
   public void AddCommandToCurrentPad( int speed, int time, bool rotationCommand, int rotationDegree )
