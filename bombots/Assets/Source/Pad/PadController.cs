@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class PadController : MonoBehaviour {
 
+  public Material padColor;
+
   protected enum State
   {
     IDLE,
@@ -49,7 +51,7 @@ public class PadController : MonoBehaviour {
       // give the blobs their commands
       BlobAI blob = other.gameObject.GetComponent<BlobAI>();
 
-      blob.assignCommands(commands);
+      blob.assignCommands(commands, padColor);
     }
   }
 
