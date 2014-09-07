@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class test : MonoBehaviour {
 
+	public Material padColor;
 	private bool gaveCommands;
 	private GameObject datBlob;
 	private List<Command> testList;
@@ -16,14 +17,14 @@ public class test : MonoBehaviour {
 		testList = new List<Command>();
 		testList.Add(new Command(3, 4, false, 0));
 		testList.Add(new Command(0, 5, false, 0));
-		testList.Add(new Command(2, 5, true, 1));
+		testList.Add(new Command(2, 5, true, 1)); 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(!gaveCommands){
 			gaveCommands = true;
-			datBlob.GetComponent<BlobAI>().assignCommands(testList);
+			datBlob.GetComponent<BlobAI>().assignCommands(testList, padColor);
 		}
 	}
 }

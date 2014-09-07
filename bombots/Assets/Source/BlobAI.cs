@@ -8,6 +8,8 @@ public class BlobAI : MonoBehaviour {
 
 	private float targetRotation;
 
+	public Animator animator;
+
 	public SkinnedMeshRenderer currentColoredSkin;
 
 	private float currentSpeed;
@@ -21,6 +23,7 @@ public class BlobAI : MonoBehaviour {
 	private float deltaTime;
 
 	private float timeToEnd ; //when the current command ends, =time.now+command length of time
+	private float idleDeathTime;
 
 	private int commandListeningToNum;
 
@@ -36,12 +39,14 @@ public class BlobAI : MonoBehaviour {
 		commandListeningToNum = 0;
 	}
 
-	public void assignCommands(List<Command> commandList){
+	public void assignCommands(List<Command> commandList, Material color){
 		this.commandList.Clear();
 		foreach(Command command in commandList){
 			this.commandList.Add(command);
 		}
 		commandListeningToNum = 0;
+
+		currentColoredSkin.material = color;
 	}
 
 
@@ -80,11 +85,18 @@ public class BlobAI : MonoBehaviour {
 		switch(currentState)
 		{
 			case States.Moving:
-				this.transform.Translate(Vector3.forward*currentSpeed*Time.deltaTime);
+				this.transform.Translate(Vector3.forward*currentSpeed*Time.deltaTime*3);
 				Debug.Log("State is MOVING");
+				animator.SetBool("isKablooey", false);
+				animator.SetBool("isIdle", false);
+				animator.SetBool("isScooching", true);
 				break;
 			case States.Nothing:
 				Debug.Log("State is NOTHING");
+				idleDeathTime = deltaTime+3;
+				animator.SetBool("isKablooey", false);
+				animator.SetBool("isIdle", true);
+				animator.SetBool("isScooching", false);
 				break;
 			case States.Rotating:
 				currentRotation = Mathf.Lerp(currentRotation, targetRotation, (Time.deltaTime * 2));
@@ -93,11 +105,18 @@ public class BlobAI : MonoBehaviour {
 					currentState = States.Nothing;
 				}
 				Debug.Log("State is ROTATING");
+				animator.SetBool("isKablooey", false);
+				animator.SetBool("isIdle", false);
+				animator.SetBool("isScooching", true);
 				break;
 			case States.Waiting:
 				Debug.Log("State is WAITING");
+				animator.SetBool("isKablooey", false);
+				animator.SetBool("isIdle", true);
+				animator.SetBool("isScooching", false);
 				break;
 			default:
+				Debug.Log("State not found. . .");
 				break;
 		}
 
@@ -107,7 +126,18 @@ public class BlobAI : MonoBehaviour {
 			currentState = States.Nothing;
 			commandListeningToNum++;
 			deltaTime = 0;
+			animator.SetBool("isKablooey", false);
+			animator.SetBool("isIdle", true);
+			animator.SetBool("isScooching", false);
 		} 
+
+		//if the slime idles for too long, KABLOOEY!
+		if(idleDeathTime <= deltaTime && currentState == States.Nothing){
+			Debug.Log("KABLOOEY!!!");
+			animator.SetBool("isKablooey", true);
+			animator.SetBool("isIdle", false);
+			animator.SetBool("isScooching", false);
+		}
 	}
 }
 
