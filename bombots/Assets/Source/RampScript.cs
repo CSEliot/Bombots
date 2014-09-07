@@ -18,8 +18,12 @@ public class RampScript : MonoBehaviour {
 
 		// change direction
 		float angleMag = Mathf.Abs (angleOffset);
-		if (angleMag < 0.001f && Random.value < 0.5f*Time.deltaTime)
+		if (angleMag < 0.001f && Random.value < 0.5f*Time.deltaTime) {
 			targetAngle = -targetAngle;
+
+			GameObject laser = GameObject.Find ("/gate/laser_004");
+			laser.renderer.enabled = targetAngle > 0;
+		}
 
 		angleOffset = Mathf.Clamp(10f * Mathf.Sign(angleOffset)*Time.deltaTime, 
 		                          -angleMag, angleMag);
