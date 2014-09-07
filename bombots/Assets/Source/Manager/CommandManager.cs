@@ -48,6 +48,11 @@ public class CommandManager : MonoBehaviour {
     }
   }
 
+  public void RemoveCommand(CommandMetadata command)
+  {
+    padManager.RemoveCommandFromCurrentPad();
+  }
+
   public void CommandLine()
   {
     if (!coreInstructions.activeSelf && !paramStop.activeSelf && !paramTurn.activeSelf

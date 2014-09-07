@@ -6,7 +6,9 @@ public class CommandListManager : MonoBehaviour {
 
   public const float PADDING_X = 1.4f;
 
-  public Transform scrollable;
+  protected CommandManager commandManager;
+
+  public Transform content;
   public Transform commandCard;
 
   protected float currentX;
@@ -16,6 +18,7 @@ public class CommandListManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     listItems = new List<CommandMetadataComponent>();
+    commandManager = transform.GetComponent<CommandManager>();
 	}
 	
 	// Update is called once per frame
@@ -27,12 +30,12 @@ public class CommandListManager : MonoBehaviour {
   {
     Transform newCommandCard = (Transform) Instantiate( commandCard );
     newCommandCard.name = "Command Card " + listItems.Count;
-    newCommandCard.parent = scrollable;
+    newCommandCard.parent = content;
 
     Vector3 position = newCommandCard.position;
-    position.x = scrollable.position.x;
-    position.y = scrollable.position.y;
-    position.z = scrollable.position.z;
+    position.x = content.position.x;
+    position.y = content.position.y;
+    position.z = content.position.z;
     newCommandCard.position = position;
 
     Vector3 localPosition = newCommandCard.localPosition;
@@ -58,10 +61,15 @@ public class CommandListManager : MonoBehaviour {
   {
     CommandMetadataComponent component = listItems[listItems.Count];
     Transform x = component.transform.FindChild ("X");
+
+    commandManager.RemoveCommand(component.Metadata);
     x.gameObject.SetActive(false);
+
     listItems.Remove(component);
     GameObject.Destroy(component.gameObject);
+
     Transform newX = listItems[listItems.Count].transform.FindChild("X");
     newX.gameObject.SetActive(true);
+
   }
 }

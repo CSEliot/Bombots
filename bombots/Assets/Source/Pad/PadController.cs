@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PadController : MonoBehaviour {
 
   public Material padColor;
+  public Material inactiveColor;
   public int padIndex;
   private int currentColor;
 	
@@ -27,6 +28,16 @@ public class PadController : MonoBehaviour {
     set;
   }
 
+  public void activate(){
+	gameObject.transform.GetChild(0).GetComponent<Animator>().SetBool("isOn", true);
+	gameObject.transform.GetChild(0).FindChild("laser_004").GetComponent<SkinnedMeshRenderer>().material = laserColors[currentColor];
+  }
+
+  public void deactivate(){
+	gameObject.transform.GetChild(0).GetComponent<Animator>().SetBool("isOn", false);
+	gameObject.transform.GetChild(0).FindChild("laser_004").GetComponent<SkinnedMeshRenderer>().material = inactiveColor;
+  }
+
   public bool hasBeenReached
   {
     get;
@@ -39,13 +50,11 @@ public class PadController : MonoBehaviour {
 	    GameObject gameManager = GameObject.FindGameObjectWithTag("GameManager");
 	    padManager = gameManager.GetComponent<PadManager>();
 		currentColor = padIndex%8; //set the color equivalent to the pad's index
-		gameObject.transform.GetChild(0).FindChild("laser_004").GetComponent<SkinnedMeshRenderer>().material = laserColors[currentColor];
 		padColor = materials[currentColor];
 	}
 	
 	// Update is called once per frame
 	void Update () {
-    print ("PAD " + padIndex + " LENGTH: " + commands.Count);
 	}
 
   void OnTriggerEnter(Collider other)
@@ -63,5 +72,11 @@ public class PadController : MonoBehaviour {
   {
 	changeColor();
     commands.Add( new Command(speed, time, rotationCommand, rotationDegree));
+  }
+
+  public void RemoveLastCommand()
+  {
+    changeColor();
+    commands.RemoveAt(commands.Count - 1);
   }
 }

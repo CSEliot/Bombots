@@ -32,6 +32,7 @@ public class PadManager : MonoBehaviour
       }
 
       currentPad = 0;
+	  GetCurrentPad().activate();
     }
   }
   
@@ -46,6 +47,7 @@ public class PadManager : MonoBehaviour
 
   protected void UpdateCurrentPad()
   {
+	
     PadController nextPad = GetNextPad();
 
     if (nextPad == null)
@@ -54,7 +56,9 @@ public class PadManager : MonoBehaviour
     }
     else if (nextPad.hasBeenReached)
     {
+      GetCurrentPad().deactivate();
       currentPad++;
+	  GetCurrentPad().activate();
     }
   }
 
@@ -75,9 +79,18 @@ public class PadManager : MonoBehaviour
 
   public void AddCommandToCurrentPad( int speed, int time, bool rotationCommand, int rotationDegree )
   {
+    print ("PAD LENGTH" + pads.Length);
     if (pads.Length > 0)
     {
       pads[ currentPad ].AddCommand ( speed, time, rotationCommand, rotationDegree );
+    }
+  }
+
+  public void RemoveCommandFromCurrentPad( )
+  {
+    if (pads.Length > 0)
+    {
+      pads[ currentPad ].RemoveLastCommand();
     }
   }
 }
