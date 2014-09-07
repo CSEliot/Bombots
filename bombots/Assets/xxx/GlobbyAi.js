@@ -1,4 +1,4 @@
-﻿#pragma strict
+#pragma strict
 
 
 var MoveSpeed : float = 3;
@@ -54,7 +54,9 @@ function Update(){
 	timerNum += Time.deltaTime;
 	
 	rigidbody.velocity = transform.forward * MoveSpeed;
+
 	
+		//transform.rotation
 }
 
 
