@@ -24,7 +24,7 @@ public class ChangeLevel : MonoBehaviour {
 			loadTime = Time.time + loadDelay;
 
 			BlobAI blob = other.gameObject.GetComponent<BlobAI>();
-			blob.victory();
+			blob.victory(gameObject);
 		}
 	}
 }

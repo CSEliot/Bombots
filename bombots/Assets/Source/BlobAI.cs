@@ -62,8 +62,10 @@ public class BlobAI : MonoBehaviour {
 
 	}
 
-	public void victory() {
+	public void victory(GameObject goal) {
 		currentState = States.Victory;
+		//transform.position = goal.transform.position;
+		transform.rotation = goal.transform.rotation;
 	}
 
 	// Update is called once per frame
@@ -130,13 +132,13 @@ public class BlobAI : MonoBehaviour {
 				animator.SetBool("isScooching", false);
 				break;
 			case States.Victory:
-				Debug.Log("State is WAITING");
+				Debug.Log("State is VICTORY");
 				animator.SetBool("isKablooey", false);
 				animator.SetBool("isIdle", false);
 				animator.SetBool("isScooching", false);
 				animator.SetBool("isWin", true);
 				currentSpeed = 0f;
-			break;
+				break;
 			default:
 				Debug.Log("State not found. . .");
 				break;
