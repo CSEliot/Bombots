@@ -54,7 +54,8 @@ public class BlobAI : MonoBehaviour {
 		commandListeningToNum = 0;
 
 		currentColoredSkin.material = color;
-		currentState = States.Nothing;
+		if (currentState != States.Victory)
+			currentState = States.Nothing;
 		deltaTime = 0;
 
 		GameObject currentPad = GameObject.Find("GameManager");
@@ -65,7 +66,7 @@ public class BlobAI : MonoBehaviour {
 	public void victory(GameObject goal) {
 		currentState = States.Victory;
 		//transform.position = goal.transform.position;
-		transform.rotation = goal.transform.rotation;
+		targetRotation = goal.transform.rotation.eulerAngles.y;
 	}
 
 	// Update is called once per frame
@@ -133,11 +134,19 @@ public class BlobAI : MonoBehaviour {
 				break;
 			case States.Victory:
 				Debug.Log("State is VICTORY");
-				animator.SetBool("isKablooey", false);
-				animator.SetBool("isIdle", false);
-				animator.SetBool("isScooching", false);
-				animator.SetBool("isWin", true);
-				currentSpeed = 0f;
+				// rotate to align with goal (presumably also toward user)
+				if (Mathf.Abs(currentRotation - targetRotation) > 0.001){
+					animator.SetBool("isKablooey", false);
+					animator.SetBool("isIdle", true);
+					animator.SetBool("isScooching", false);
+					currentRotation = Mathf.Lerp(currentRotation, targetRotation, (Time.deltaTime*2));
+					this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, currentRotation, this.transform.eulerAngles.z);
+				}
+				else {
+					animator.SetBool("isIdle", false);
+					animator.SetBool("isWin", true);
+				}
+				currentState = States.Victory;
 				break;
 			default:
 				Debug.Log("State not found. . .");
