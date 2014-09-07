@@ -19,7 +19,12 @@ public class ChangeLevel : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (nextLevel > 0 && other.tag.Equals("Blob"))
+		if (nextLevel > 0 && other.tag.Equals("Blob")) {
+			// delay before loading new level for win animation
 			loadTime = Time.time + loadDelay;
+
+			BlobAI blob = other.gameObject.GetComponent<BlobAI>();
+			blob.victory();
+		}
 	}
 }
