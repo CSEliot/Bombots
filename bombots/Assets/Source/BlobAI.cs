@@ -51,7 +51,10 @@ public class BlobAI : MonoBehaviour {
 
 
 		//blobs start doing nothing. Then they check their command list but only if there is a command left.
-		if(currentState == States.Nothing && commandListeningToNum < commandList.Count){
+		if(currentState == 
+		   States.Nothing && 
+		   commandListeningToNum < 
+		   commandList.Count){
 			//Debug.Log("deltaTime is: " + deltaTime + " timeToEnd is: " + timeToEnd);
 			//how does the blob know if the command is wait, move, or turn?
 			// ANSWER: the command has a "is rotation command" bool, and wait it just move w/ speed = 0.

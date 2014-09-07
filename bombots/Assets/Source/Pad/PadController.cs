@@ -25,9 +25,10 @@ public class PadController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-    GameObject gameManager = GameObject.FindGameObjectWithTag("GameManager");
-    padManager = gameManager.GetComponent<PadManager>();
-    state = State.IDLE;
+		commands = new List<Command>();
+	    GameObject gameManager = GameObject.FindGameObjectWithTag("GameManager");
+	    padManager = gameManager.GetComponent<PadManager>();
+	    state = State.IDLE;
 	}
 	
 	// Update is called once per frame

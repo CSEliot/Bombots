@@ -44,7 +44,10 @@ public class PadManager : MonoBehaviour
     if (pads.Count > 0)
     {
       currentPad++;
-      pads[ currentPad ].SetNext ();
+	  if (currentPad >= pads.Count)
+	  {
+        pads[ currentPad ].SetNext ();
+	  }
     }
   }
 
