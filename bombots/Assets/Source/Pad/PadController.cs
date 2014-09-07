@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PadController : MonoBehaviour {
 
   public Material padColor;
+  public int padIndex;
 
   protected enum State
   {
