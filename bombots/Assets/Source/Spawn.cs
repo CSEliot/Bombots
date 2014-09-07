@@ -4,11 +4,13 @@ using System.Collections;
 public class Spawn : MonoBehaviour {
 	public float spawnRate;	// how often to spawn, in seconds
 	public float lastSpawn;	// time of last spawn
+	public GameObject baseBlob;	// base blob object
 
 	// Use this for initialization
 	void Start () {
 		spawnRate = 1f;
 		lastSpawn = Time.time;
+		baseBlob = GameObject.Find("BlobBob");
 	}
 	
 	// Update is called once per frame
@@ -16,7 +18,7 @@ public class Spawn : MonoBehaviour {
 		float now = Time.time;
 		if (now > lastSpawn + spawnRate) {
 			lastSpawn = now;
-			Instantiate(GameObject.Find("Blob"), transform.position, Quaternion.identity);
+			Instantiate(baseBlob, transform.position, Quaternion.identity);
 		}
 	}
 }

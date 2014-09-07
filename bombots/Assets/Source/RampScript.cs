@@ -13,7 +13,7 @@ public class RampScript : MonoBehaviour {
 		targetAngle = -22.5f;
 		probability = 0.5f;
 		laser = GameObject.Find ("gate/laser_004");
-		pivot = new Vector3(0,0,-1);
+		pivot = new Vector3(0,0,-6);
 	}
 	
 	// Update is called once per frame
