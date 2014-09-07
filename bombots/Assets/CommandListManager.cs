@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CommandListManager : MonoBehaviour {
 
-  public const float PADDING_X = 1.2f;
+  public const float PADDING_X = 1.4f;
 
   public Transform scrollable;
   public Transform commandCard;
@@ -40,14 +40,28 @@ public class CommandListManager : MonoBehaviour {
     currentX += PADDING_X;
     newCommandCard.localPosition = localPosition;
 
+    if ( listItems.Count > 0 )
+    {
+      Transform x = listItems[listItems.Count - 1].transform.FindChild("X");
+      x.gameObject.SetActive(false);
+    }
 
     CommandMetadataComponent component = newCommandCard.GetComponent<CommandMetadataComponent>();
     component.Metadata = metadata;
     listItems.Add( component );
+    Transform newX = listItems[listItems.Count - 1].transform.FindChild("X");
+    newX.gameObject.SetActive(true);
+
   }
 
-  void RemoveCommand()
+  public void RemoveCommand()
   {
-
+    CommandMetadataComponent component = listItems[listItems.Count];
+    Transform x = component.transform.FindChild ("X");
+    x.gameObject.SetActive(false);
+    listItems.Remove(component);
+    GameObject.Destroy(component.gameObject);
+    Transform newX = listItems[listItems.Count].transform.FindChild("X");
+    newX.gameObject.SetActive(true);
   }
 }
