@@ -30,7 +30,7 @@ using System.Collections.Generic;
 
 	// Use this for initialization
 	void Start () {
-	}
+	} 
 
 	public Commands(){
 		ListSize = 0;

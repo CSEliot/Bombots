@@ -8,6 +8,8 @@ public class BlobAI : MonoBehaviour {
 
 	private float targetRotation;
 
+	public SkinnedMeshRenderer currentColoredSkin;
+
 	private float currentSpeed;
 	private float currentRotation;
 
@@ -102,7 +104,7 @@ public class BlobAI : MonoBehaviour {
 			currentState = States.Nothing;
 			commandListeningToNum++;
 			deltaTime = 0;
-		}
+		} 
 	}
 }
 
