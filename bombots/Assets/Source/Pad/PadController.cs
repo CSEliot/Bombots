@@ -55,7 +55,6 @@ public class PadController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-    print ("PAD " + padIndex + " LENGTH: " + commands.Count);
 	}
 
   void OnTriggerEnter(Collider other)
@@ -73,5 +72,11 @@ public class PadController : MonoBehaviour {
   {
 	changeColor();
     commands.Add( new Command(speed, time, rotationCommand, rotationDegree));
+  }
+
+  public void RemoveLastCommand()
+  {
+    changeColor();
+    commands.RemoveAt(commands.Count - 1);
   }
 }

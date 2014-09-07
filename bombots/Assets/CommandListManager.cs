@@ -8,7 +8,7 @@ public class CommandListManager : MonoBehaviour {
 
   protected CommandManager commandManager;
 
-  public Transform scrollable;
+  public Transform content;
   public Transform commandCard;
 
   protected float currentX;
@@ -30,12 +30,12 @@ public class CommandListManager : MonoBehaviour {
   {
     Transform newCommandCard = (Transform) Instantiate( commandCard );
     newCommandCard.name = "Command Card " + listItems.Count;
-    newCommandCard.parent = scrollable;
+    newCommandCard.parent = content;
 
     Vector3 position = newCommandCard.position;
-    position.x = scrollable.position.x;
-    position.y = scrollable.position.y;
-    position.z = scrollable.position.z;
+    position.x = content.position.x;
+    position.y = content.position.y;
+    position.z = content.position.z;
     newCommandCard.position = position;
 
     Vector3 localPosition = newCommandCard.localPosition;

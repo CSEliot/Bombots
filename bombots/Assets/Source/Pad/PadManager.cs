@@ -79,13 +79,14 @@ public class PadManager : MonoBehaviour
 
   public void AddCommandToCurrentPad( int speed, int time, bool rotationCommand, int rotationDegree )
   {
+    print ("PAD LENGTH" + pads.Length);
     if (pads.Length > 0)
     {
       pads[ currentPad ].AddCommand ( speed, time, rotationCommand, rotationDegree );
     }
   }
 
-  public void RemoveCommandToCurrentPad( )
+  public void RemoveCommandFromCurrentPad( )
   {
     if (pads.Length > 0)
     {
