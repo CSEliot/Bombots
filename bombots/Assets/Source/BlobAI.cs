@@ -65,7 +65,7 @@ public class BlobAI : MonoBehaviour {
 
 	public void victory(GameObject goal) {
 		currentState = States.Victory;
-		//transform.position = goal.transform.position;
+		currentSpeed = 0;
 		targetRotation = goal.transform.rotation.eulerAngles.y;
 	}
 
@@ -135,7 +135,7 @@ public class BlobAI : MonoBehaviour {
 			case States.Victory:
 				Debug.Log("State is VICTORY");
 				// rotate to align with goal (presumably also toward user)
-				if (Mathf.Abs(currentRotation - targetRotation) > 0.001){
+				if (Mathf.Abs(currentRotation - targetRotation) > 1){
 					animator.SetBool("isKablooey", false);
 					animator.SetBool("isIdle", true);
 					animator.SetBool("isScooching", false);
@@ -170,7 +170,7 @@ public class BlobAI : MonoBehaviour {
 		} 
 
 		//if the slime idles for too long, KABLOOEY!
-		if(currentState == States.Nothing && currentState != States.Victory && idleDeathTime <= deltaTime){
+		if(currentState == States.Nothing && idleDeathTime <= deltaTime){
 			Debug.Log("KABLOOEY!!!");
 			animator.SetBool("isKablooey", true);
 			animator.SetBool("isIdle", false);

@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class ChangeLevel : MonoBehaviour {
-	public int nextLevel=0;
 	public float loadDelay = 12f;
 
 	private float loadTime = 0f;
@@ -14,12 +13,15 @@ public class ChangeLevel : MonoBehaviour {
 	void Update () {
 		if (loadTime > 0 && Time.time > loadTime) {
 			loadTime = 0;
+			int nextLevel = Application.loadedLevel + 1;
+			if (nextLevel > Application.levelCount)
+				nextLevel = Application.levelCount;
 			Application.LoadLevel(nextLevel);
 		}
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (nextLevel > 0 && other.tag.Equals("Blob")) {
+		if (loadTime == 0 && other.tag.Equals("Blob")) {
 			// delay before loading new level for win animation
 			loadTime = Time.time + loadDelay;
 
