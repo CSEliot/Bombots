@@ -46,7 +46,7 @@ public class PadController : MonoBehaviour {
 
       // give the blobs their commands
       BlobAI blob = other.gameObject.GetComponent<BlobAI>();
-      blob.assignCommands(commands);
+      blob.assignCommands(new Commands(commands));
     }
   }
 
