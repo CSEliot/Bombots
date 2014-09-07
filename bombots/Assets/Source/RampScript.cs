@@ -24,7 +24,7 @@ public class RampScript : MonoBehaviour {
 		float angleMag = Mathf.Abs (angleOffset);
 		if (angleMag < 0.001f && Random.value < probability*Time.deltaTime) {
 			targetAngle = -targetAngle;
-			laser.renderer.enabled = targetAngle > 0;
+			//laser.renderer.enabled = targetAngle > 0;
 		}
 
 		angleOffset = Mathf.Clamp(10f * Mathf.Sign(angleOffset)*Time.deltaTime, 

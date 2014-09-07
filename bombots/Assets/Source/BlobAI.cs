@@ -49,6 +49,7 @@ public class BlobAI : MonoBehaviour {
 		this.commandList.Clear();
 		foreach(Command command in commandList){
 			this.commandList.Add(command);
+			Debug.Log(command.ToString());
 		}
 		commandListeningToNum = 0;
 
@@ -73,13 +74,14 @@ public class BlobAI : MonoBehaviour {
 			Command tempCommand = commandList[commandListeningToNum];
 			Debug.Log("commandListeningToNum is: " +commandListeningToNum);
 			//this is how we know the command is a wait command.
-			if(tempCommand.Speed == 0){
+			if(tempCommand.Speed == 0 && tempCommand.RotationCommand == false){
 				currentState = States.Waiting;
 				currentSpeed = 0f;
 			}else if(tempCommand.RotationCommand == true){
+				Debug.Log("FOUND A ROTATION COMMAND");
 				currentState = States.Rotating;
 				currentSpeed = 0f;
-				targetRotation = 90*tempCommand.RotationDegree;
+				targetRotation = currentRotation + 90*tempCommand.RotationDegree;
 			}else{
 				currentState = States.Moving;
 				currentSpeed = tempCommand.Speed;
@@ -105,12 +107,12 @@ public class BlobAI : MonoBehaviour {
 				animator.SetBool("isScooching", false);
 				break;
 			case States.Rotating:
-				currentRotation = Mathf.Lerp(currentRotation, targetRotation, (Time.deltaTime * 2));
+				currentRotation = Mathf.Lerp(currentRotation, targetRotation, (Time.deltaTime*2));
 				this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, currentRotation, this.transform.eulerAngles.z);
 				if (Mathf.Floor(currentRotation) == targetRotation){
 					currentState = States.Nothing;
 				}
-				Debug.Log("State is ROTATING");
+				Debug.Log("State is ROTATING: " + currentRotation + " " + targetRotation);
 				animator.SetBool("isKablooey", false);
 				animator.SetBool("isIdle", false);
 				animator.SetBool("isScooching", true);
@@ -135,6 +137,8 @@ public class BlobAI : MonoBehaviour {
 			currentState = States.Nothing;
 			commandListeningToNum++;
 			deltaTime = 0;
+			//targetRotation = 0;
+			//currentRotation = 0;
 			animator.SetBool("isKablooey", false);
 			animator.SetBool("isIdle", true);
 			animator.SetBool("isScooching", false);
@@ -153,7 +157,7 @@ public class BlobAI : MonoBehaviour {
 		}
 
 		if(toBeDeleted){
-			Debug.Log("Waiting to be deleted: " + deleteCounter + " deltaTime: " + deltaTime);
+			//Debug.Log("Waiting to be deleted: " + deleteCounter + " deltaTime: " + deltaTime);
 			if(deltaTime > deleteCounter){
 				Destroy(this.gameObject);
 			}

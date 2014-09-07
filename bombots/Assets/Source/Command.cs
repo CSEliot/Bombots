@@ -17,7 +17,12 @@ public struct Command {
 	public int RotationDegree {get;private set;}
 		
 
+	public string ToString(){
+		string str = "Speed " + Speed + "," + Time + "," + RotationCommand + "," + RotationDegree;
+		return str;
+	}
 }
+
 
 /*using UnityEngine;
 using System.Collections;

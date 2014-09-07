@@ -51,10 +51,10 @@ public class CommandManager : MonoBehaviour {
       padManager.AddCommandToCurrentPad(speed, time, false, rotation);
       break;
     case CommandType.TURN:
-      padManager.AddCommandToCurrentPad(0, time, false, rotation);
+      padManager.AddCommandToCurrentPad(0, 2, true, rotation);
       break;
     case CommandType.WAIT:
-      padManager.AddCommandToCurrentPad(speed, time, true, rotation);
+      padManager.AddCommandToCurrentPad(0, time, false, rotation);
       break;
     }
   }
@@ -138,14 +138,14 @@ public class CommandManager : MonoBehaviour {
 
   public void LeftTurn()
   {
-    newCommand.rotation = 90;
+    newCommand.rotation = -1;
     AddCommand(newCommand.type, newCommand.speed, newCommand.time, newCommand.rotation);
     paramTurn.SetActive(false);
   }
 
   public void RightTurn()
   {
-    newCommand.rotation = -90;
+    newCommand.rotation = 1;
     AddCommand(newCommand.type, newCommand.speed, newCommand.time, newCommand.rotation);
     paramTurn.SetActive(false);
   }
