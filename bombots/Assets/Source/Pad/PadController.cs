@@ -7,16 +7,7 @@ public class PadController : MonoBehaviour {
   public Material padColor;
   public int padIndex;
 
-  protected enum State
-  {
-    IDLE,
-    NEXT,
-    COMPLETE
-  }
-
   protected PadManager padManager;
-
-  protected State state;
 
   protected List<Command> commands;
 
@@ -26,41 +17,33 @@ public class PadController : MonoBehaviour {
     set;
   }
 
+  public bool hasBeenReached
+  {
+    get;
+    private set;
+  }
+
 	// Use this for initialization
 	void Start () {
 		commands = new List<Command>();
 	    GameObject gameManager = GameObject.FindGameObjectWithTag("GameManager");
 	    padManager = gameManager.GetComponent<PadManager>();
-	    state = State.IDLE;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+    print ("PAD " + padIndex + " LENGTH: " + commands.Count);
 	}
 
   void OnTriggerEnter(Collider other)
   {
     if (other.tag.Equals("Blob"))
     {
-      if (state == State.NEXT)
-      {
-        padManager.AdvanceToNextPad();
-        state = State.COMPLETE;
-      }
-
-      // give the blobs their commands
       BlobAI blob = other.gameObject.GetComponent<BlobAI>();
 
       blob.assignCommands(commands, padColor);
-    }
-  }
 
-  public void SetNext()
-  {
-    if (state == State.IDLE)
-    {
-      state = State.NEXT;
+      hasBeenReached = true;
     }
   }
 
