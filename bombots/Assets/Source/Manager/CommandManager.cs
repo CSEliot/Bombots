@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CommandManager : MonoBehaviour {
 
@@ -12,7 +13,7 @@ public class CommandManager : MonoBehaviour {
 
 
   protected PadManager padManager;
-  protected Commands currentCommands;
+  protected List<Command> currentCommands;
 
 	// Use this for initialization
 	void Start () {
