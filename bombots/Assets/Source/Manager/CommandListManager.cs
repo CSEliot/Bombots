@@ -59,7 +59,7 @@ public class CommandListManager : MonoBehaviour {
 
   public void RemoveCommand()
   {
-    CommandMetadataComponent component = listItems[listItems.Count];
+    CommandMetadataComponent component = listItems[listItems.Count - 1];
     Transform x = component.transform.FindChild ("X");
 
     commandManager.RemoveCommand(component.Metadata);
@@ -68,8 +68,13 @@ public class CommandListManager : MonoBehaviour {
     listItems.Remove(component);
     GameObject.Destroy(component.gameObject);
 
-    Transform newX = listItems[listItems.Count].transform.FindChild("X");
-    newX.gameObject.SetActive(true);
+    currentX -= PADDING_X;
+
+    if (listItems.Count > 0)
+    {
+      Transform newX = listItems[listItems.Count - 1].transform.FindChild("X");
+      newX.gameObject.SetActive(true);
+    }
 
   }
 }
