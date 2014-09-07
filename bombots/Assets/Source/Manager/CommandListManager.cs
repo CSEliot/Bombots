@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CommandListManager : MonoBehaviour {
 
-  public const float PADDING_X = 1.4f;
+  public const float PADDING_X = .8f;
 
   protected CommandManager commandManager;
 
