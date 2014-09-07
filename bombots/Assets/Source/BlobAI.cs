@@ -24,6 +24,10 @@ public class BlobAI : MonoBehaviour {
 
 	private float timeToEnd ; //when the current command ends, =time.now+command length of time
 	private float idleDeathTime;
+	private bool toBeDeleted;
+	private float deleteCounter;
+
+	private float delayDeleteTime;
 
 	private int commandListeningToNum;
 
@@ -32,11 +36,13 @@ public class BlobAI : MonoBehaviour {
 		currentState= States.Nothing;
 		currentSpeed = 0f;
 		currentRotation = 0f;
-		timeToEnd  = 0.0f;
+		toBeDeleted = false;
+		timeToEnd  = 1000000.0f;
 		targetRotation = 0f;
 		commandList = new List<Command>();
 		deltaTime = Time.deltaTime;
 		commandListeningToNum = 0;
+		idleDeathTime = deltaTime + 5;
 	}
 
 	public void assignCommands(List<Command> commandList, Material color){
@@ -47,19 +53,20 @@ public class BlobAI : MonoBehaviour {
 		commandListeningToNum = 0;
 
 		currentColoredSkin.material = color;
+		currentState = States.Nothing;
+		deltaTime = 0;
+
 	}
 
 
 	// Update is called once per frame
 	void Update () {
+		Debug.Log ("Command Size is: " + commandList.Count);
 		deltaTime += Time.deltaTime;
 
 
 		//blobs start doing nothing. Then they check their command list but only if there is a command left.
-		if(currentState == 
-		   States.Nothing && 
-		   commandListeningToNum < 
-		   commandList.Count){
+		if(currentState == States.Nothing && commandListeningToNum < commandList.Count){
 			//Debug.Log("deltaTime is: " + deltaTime + " timeToEnd is: " + timeToEnd);
 			//how does the blob know if the command is wait, move, or turn?
 			// ANSWER: the command has a "is rotation command" bool, and wait it just move w/ speed = 0.
@@ -93,7 +100,6 @@ public class BlobAI : MonoBehaviour {
 				break;
 			case States.Nothing:
 				Debug.Log("State is NOTHING");
-				idleDeathTime = deltaTime+3;
 				animator.SetBool("isKablooey", false);
 				animator.SetBool("isIdle", true);
 				animator.SetBool("isScooching", false);
@@ -121,7 +127,10 @@ public class BlobAI : MonoBehaviour {
 		}
 
 		//if the final command has ended, begin to idle
-		if(deltaTime > timeToEnd){
+		if(deltaTime > timeToEnd && currentState != States.Nothing){
+			Debug.Log("Setting State to nothing");
+			//the dude won't explode cuz idedeathtime is always > deltatime
+			idleDeathTime = deltaTime+3;
 			currentSpeed = 0; 
 			currentState = States.Nothing;
 			commandListeningToNum++;
@@ -132,11 +141,22 @@ public class BlobAI : MonoBehaviour {
 		} 
 
 		//if the slime idles for too long, KABLOOEY!
-		if(idleDeathTime <= deltaTime && currentState == States.Nothing){
+		if(currentState == States.Nothing  && idleDeathTime <= deltaTime){
 			Debug.Log("KABLOOEY!!!");
 			animator.SetBool("isKablooey", true);
 			animator.SetBool("isIdle", false);
 			animator.SetBool("isScooching", false);
+			toBeDeleted = true;
+			deltaTime = 0;
+			deleteCounter = Time.deltaTime + 3;
+			idleDeathTime = 1000000f; // so that THIS function isn't called since idle will always be > deltatime
+		}
+
+		if(toBeDeleted){
+			Debug.Log("Waiting to be deleted: " + deleteCounter + " deltaTime: " + deltaTime);
+			if(deltaTime > deleteCounter){
+				Destroy(this.gameObject);
+			}
 		}
 	}
 }
