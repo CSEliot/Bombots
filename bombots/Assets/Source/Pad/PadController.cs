@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PadController : MonoBehaviour {
 
@@ -14,7 +15,7 @@ public class PadController : MonoBehaviour {
 
   protected State state;
 
-  protected Commands commands;
+  protected List<Command> commands;
 
   public int PadNumber
   {
@@ -46,7 +47,8 @@ public class PadController : MonoBehaviour {
 
       // give the blobs their commands
       BlobAI blob = other.gameObject.GetComponent<BlobAI>();
-      blob.assignCommands(new Commands(commands));
+
+      blob.assignCommands(commands);
     }
   }
 
@@ -60,6 +62,6 @@ public class PadController : MonoBehaviour {
 
   public void AddCommand(int speed, int time, bool rotationCommand, int rotationDegree)
   {
-    commands.addCommand(speed, time, rotationCommand, rotationDegree);
+    commands.Add( new Command(speed, time, rotationCommand, rotationDegree));
   }
 }

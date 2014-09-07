@@ -2,50 +2,55 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PadManager : MonoBehaviour {
+public class PadManager : MonoBehaviour
+{
 
   protected int currentPad;
   protected List<PadController> pads;
 
-	// Use this for initialization
-	void Start () 
+  // Use this for initialization
+  void Start()
   {
-    GameObject[] padObjects = GameObject.FindGameObjectsWithTag("Pad");
+    GameObject[] padObjects = GameObject.FindGameObjectsWithTag ( "Pad" );
 
-    int i = 0;
-    pads = new List<PadController>(padObjects.Length);
-    foreach (GameObject padObject in padObjects)
+    if ( padObjects.Length > 0 )
     {
-      PadController padController = padObject.GetComponent<PadController>();
-      padController.PadNumber = i;
-      pads.Add(padController);
+      int i = 0;
+      pads = new List<PadController> ( padObjects.Length );
+      foreach ( GameObject padObject in padObjects )
+      {
+        PadController padController = padObject.GetComponent<PadController> ();
+        padController.PadNumber = i;
+        pads.Add ( padController );
 
-      i++;
+        i++;
+      }
+
+      currentPad = 0;
+
+      pads[ currentPad ].SetNext ();
     }
-
-    currentPad = 0;
-    pads[currentPad].SetNext();
-	}
-	
-	// Update is called once per frame
-	void Update () 
+  }
+  
+  // Update is called once per frame
+  void Update()
   {
-	
-	}
+  
+  }
 
   public void AdvanceToNextPad()
   {
     currentPad++;
-    pads[currentPad].SetNext();
+    pads[ currentPad ].SetNext ();
   }
 
   public PadController GetCurrentPad()
   {
-    return pads[currentPad];
+    return pads[ currentPad ];
   }
 
-  public void AddCommandToCurrentPad(int speed, int time, bool rotationCommand, int rotationDegree)
+  public void AddCommandToCurrentPad( int speed, int time, bool rotationCommand, int rotationDegree )
   {
-    pads[currentPad].AddCommand(speed, time, rotationCommand, rotationDegree);
+    pads[ currentPad ].AddCommand ( speed, time, rotationCommand, rotationDegree );
   }
 }
