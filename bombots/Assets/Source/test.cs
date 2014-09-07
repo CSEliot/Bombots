@@ -14,8 +14,8 @@ public class test : MonoBehaviour {
 		gaveCommands = false;
 		datBlob = GameObject.FindGameObjectWithTag("Player");
 		testList = new List<Command>();
-		testList.Add(new Command(2, 5, false, 0));
 		testList.Add(new Command(0, 5, false, 0));
+		testList.Add(new Command(1, 4, false, 0));
 		testList.Add(new Command(2, 5, true, 1));
 	}
 	
