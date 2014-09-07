@@ -15,7 +15,7 @@ public class BlobAI : MonoBehaviour {
 	private float currentSpeed;
 	private float currentRotation;
 
-	enum States { Moving, Rotating, Waiting, Nothing};
+	enum States { Moving, Rotating, Waiting, Nothing, Victory };
 	private States currentState;
 
 	public List<Command> commandList;
@@ -54,7 +54,8 @@ public class BlobAI : MonoBehaviour {
 		commandListeningToNum = 0;
 
 		currentColoredSkin.material = color;
-		currentState = States.Nothing;
+		if (currentState != States.Victory)
+			currentState = States.Nothing;
 		deltaTime = 0;
 
 		GameObject currentPad = GameObject.Find("GameManager");
@@ -62,6 +63,11 @@ public class BlobAI : MonoBehaviour {
 
 	}
 
+	public void victory(GameObject goal) {
+		currentState = States.Victory;
+		//transform.position = goal.transform.position;
+		targetRotation = goal.transform.rotation.eulerAngles.y;
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -126,13 +132,29 @@ public class BlobAI : MonoBehaviour {
 				animator.SetBool("isIdle", true);
 				animator.SetBool("isScooching", false);
 				break;
+			case States.Victory:
+				Debug.Log("State is VICTORY");
+				// rotate to align with goal (presumably also toward user)
+				if (Mathf.Abs(currentRotation - targetRotation) > 0.001){
+					animator.SetBool("isKablooey", false);
+					animator.SetBool("isIdle", true);
+					animator.SetBool("isScooching", false);
+					currentRotation = Mathf.Lerp(currentRotation, targetRotation, (Time.deltaTime*2));
+					this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, currentRotation, this.transform.eulerAngles.z);
+				}
+				else {
+					animator.SetBool("isIdle", false);
+					animator.SetBool("isWin", true);
+				}
+				currentState = States.Victory;
+				break;
 			default:
 				Debug.Log("State not found. . .");
 				break;
 		}
 
 		//if the final command has ended, begin to idle
-		if(deltaTime > timeToEnd && currentState != States.Nothing){
+		if(deltaTime > timeToEnd && currentState != States.Nothing && currentState != States.Victory){
 			Debug.Log("Setting State to nothing");
 			//the dude won't explode cuz idedeathtime is always > deltatime
 			idleDeathTime = deltaTime+3;
@@ -148,7 +170,7 @@ public class BlobAI : MonoBehaviour {
 		} 
 
 		//if the slime idles for too long, KABLOOEY!
-		if(currentState == States.Nothing  && idleDeathTime <= deltaTime){
+		if(currentState == States.Nothing && currentState != States.Victory && idleDeathTime <= deltaTime){
 			Debug.Log("KABLOOEY!!!");
 			animator.SetBool("isKablooey", true);
 			animator.SetBool("isIdle", false);
