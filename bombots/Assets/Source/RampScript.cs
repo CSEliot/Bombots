@@ -2,18 +2,15 @@
 using System.Collections;
 
 public class RampScript : MonoBehaviour {
-	public float targetAngle;
+	public float targetAngle = -22.5f;
+	public Vector3 pivot = new Vector3(0,0,-6);		// pivot point in world space
+	public float probability = 0.5f;				// chance to move
 
 	private GameObject laser;	// gate laser to turn on and off
-	private Vector3 pivot;		// pivot point in world space
-	private float probability;	// chance to move
 
 	// Use this for initialization
 	void Start () {
-		targetAngle = -22.5f;
-		probability = 0.5f;
 		laser = GameObject.Find ("gate/laser_004");
-		pivot = new Vector3(0,0,-6);
 	}
 	
 	// Update is called once per frame

@@ -2,13 +2,13 @@
 using System.Collections;
 
 public class Spawn : MonoBehaviour {
-	public float spawnRate;	// how often to spawn, in seconds
-	public float lastSpawn;	// time of last spawn
-	public GameObject baseBlob;	// base blob object
+	public float spawnRate = 1f;	// how often to spawn, in seconds
+
+	private float lastSpawn;	// time of last spawn
+	private GameObject baseBlob;	// base blob object
 
 	// Use this for initialization
 	void Start () {
-		spawnRate = 1f;
 		lastSpawn = Time.time;
 		baseBlob = GameObject.Find("BlobBob");
 	}
