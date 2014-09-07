@@ -3,8 +3,8 @@ using System.Collections;
 
 public class RampScript : MonoBehaviour {
 	public float targetAngle = -22.5f;
+	public float speed = 10f;
 	public Vector3 pivot = new Vector3(0,0,-6);		// pivot point in world space
-	public float probability = 0.5f;				// chance to move
 
 	private GameObject laser;	// gate laser to turn on and off
 
@@ -22,12 +22,12 @@ public class RampScript : MonoBehaviour {
 
 		// change direction
 		float angleMag = Mathf.Abs (angleOffset);
-		if (angleMag < 0.001f && Random.value < probability*Time.deltaTime) {
+		if (angleMag < 0.001f) {
 			targetAngle = -targetAngle;
 			//laser.renderer.enabled = targetAngle > 0;
 		}
 
-		angleOffset = Mathf.Clamp(10f * Mathf.Sign(angleOffset)*Time.deltaTime, 
+		angleOffset = Mathf.Clamp(Mathf.Sign(angleOffset) * speed * Time.deltaTime, 
 		                          -angleMag, angleMag);
 
 		// rotate toward target
