@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ChangeLevel : MonoBehaviour {
 	public int nextLevel=0;
-	public float loadDelay = 10f;
+	public float loadDelay = 12f;
 
 	private float loadTime = 0f;
 
