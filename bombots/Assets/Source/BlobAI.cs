@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 
 public class BlobAI : MonoBehaviour {
@@ -13,7 +14,7 @@ public class BlobAI : MonoBehaviour {
 	enum States { Moving, Rotating, Waiting, Nothing};
 	private int currentState;
 
-	public Commands commandList;
+	public List<Command> commandList;
 
 	private DateTime timeToEnd ; //when the current command ends, =time.now+command length of time
 
@@ -25,12 +26,15 @@ public class BlobAI : MonoBehaviour {
 		currentRotation = 0f;
 		timeToEnd  = DateTime.Now;
 		targetRotation = 0f;
-		commandList = new Commands();
+		commandList = new List<Command>();
 	
 	}
 
-	public void assignCommands(Commands commandList){
-		this.commandList = commandList;
+	public void assignCommands(List<Command> commandList){
+		this.commandList.Clear();
+		foreach(Command command in commandList){
+			this.commandList.Add(command);
+		}
 	}
 
 
@@ -46,10 +50,10 @@ public class BlobAI : MonoBehaviour {
 		}
 
 		//blobs start doing nothing. Then they check their command list but only if there is a command left.
-		if(currentState == (int)States.Nothing && commandList.ListSize != 0){
+		if(currentState == (int)States.Nothing && commandList.Count != 0){
 			//how does the blob know if the command is wait, move, or turn?
 			// ANSWER: the command has a "is rotation command" bool, and wait it just move w/ speed = 0.
-			Commands.Command tempCommand = commandList.getCurrentCommand();
+			Command tempCommand = commandList[0];
 			//this is how we know the command is a wait command.
 			if(tempCommand.Speed == 0){
 				currentState = (int)States.Waiting;
@@ -65,13 +69,13 @@ public class BlobAI : MonoBehaviour {
 
 			//copy down the time we received the command.
 			timeRightNow = DateTime.Now;
-			timeToEnd = timeRightNow .AddSeconds(commandList.getCurrentCommand().Time);
+			timeToEnd = timeRightNow.AddSeconds(commandList[0].Time);
 		}
 
 		switch(currentState)
 		{
 		case (int)States.Moving:
-			this.transform.Translate(Vector3.forward*currentSpeed);
+			this.transform.Translate(Vector3.forward*currentSpeed*Time.deltaTime);
 			if(timeToEnd.CompareTo(timeRightNow) > 0){
 				currentState = (int)States.Nothing;
 				currentSpeed = 0;
