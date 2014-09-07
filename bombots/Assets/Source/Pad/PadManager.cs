@@ -80,4 +80,12 @@ public class PadManager : MonoBehaviour
       pads[ currentPad ].AddCommand ( speed, time, rotationCommand, rotationDegree );
     }
   }
+
+  public void RemoveCommandToCurrentPad( )
+  {
+    if (pads.Length > 0)
+    {
+      pads[ currentPad ].RemoveLastCommand();
+    }
+  }
 }
