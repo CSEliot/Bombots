@@ -18,7 +18,7 @@ public class Spawn : MonoBehaviour {
 		float now = Time.time;
 		if (now > lastSpawn + spawnRate) {
 			lastSpawn = now;
-			Instantiate(baseBlob, transform.position, Quaternion.identity);
+			Instantiate(baseBlob, transform.position, transform.rotation);
 		}
 	}
 }
