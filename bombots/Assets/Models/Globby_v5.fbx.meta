@@ -1,0 +1,628 @@
+fileFormatVersion: 2
+guid: 6cb93b22765dd41ae963c75633a51b5a
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Bomb
+    100002: Bomb_0
+    100004: Butt
+    100006: CenterBone
+    100008: Drop1
+    100010: Drop2
+    100012: Drop3
+    100014: Drop4
+    100016: Drop5
+    100018: Drop6
+    100020: Drop7
+    100022: Drop8
+    100024: FatBot
+    100026: FatMid
+    100028: FatSide_L
+    100030: FatSide_R
+    100032: FX
+    100034: Globby
+    100036: Globby_001
+    100038: Globby_002
+    100040: Globby_Bones
+    100042: //RootNode
+    100044: Hand1_L
+    100046: Hand1_R
+    100048: Hand2_L
+    100050: Hand2_R
+    100052: Head
+    100054: Jaw
+    100056: Mid
+    100058: Neck
+    100060: Plane
+    100062: Sparks1
+    100064: Sparks10
+    100066: Sparks2
+    100068: Sparks3
+    100070: Sparks4
+    100072: Sparks5
+    100074: Sparks6
+    100076: Sparks7
+    100078: Sparks8
+    100080: Sparks9
+    100082: Splatter
+    100084: Tail
+    100086: TailFat
+    100088: UpMouth
+    400000: Bomb
+    400002: Bomb_0
+    400004: Butt
+    400006: CenterBone
+    400008: Drop1
+    400010: Drop2
+    400012: Drop3
+    400014: Drop4
+    400016: Drop5
+    400018: Drop6
+    400020: Drop7
+    400022: Drop8
+    400024: FatBot
+    400026: FatMid
+    400028: FatSide_L
+    400030: FatSide_R
+    400032: FX
+    400034: Globby
+    400036: Globby_001
+    400038: Globby_002
+    400040: Globby_Bones
+    400042: //RootNode
+    400044: Hand1_L
+    400046: Hand1_R
+    400048: Hand2_L
+    400050: Hand2_R
+    400052: Head
+    400054: Jaw
+    400056: Mid
+    400058: Neck
+    400060: Plane
+    400062: Sparks1
+    400064: Sparks10
+    400066: Sparks2
+    400068: Sparks3
+    400070: Sparks4
+    400072: Sparks5
+    400074: Sparks6
+    400076: Sparks7
+    400078: Sparks8
+    400080: Sparks9
+    400082: Splatter
+    400084: Tail
+    400086: TailFat
+    400088: UpMouth
+    4300000: Globby_002
+    4300002: Plane
+    4300004: Globby_001
+    4300006: Bomb
+    4300008: Globby
+    7400000: Default Take
+    7400002: Globby_Death
+    7400004: Globby_Idle
+    7400006: Globby_Scooch
+    9500000: //RootNode
+    13700000: Bomb
+    13700002: Globby
+    13700004: Globby_001
+    13700006: Globby_002
+    13700008: Plane
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 249
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bomb
+        weight: 1
+      - path: Globby
+        weight: 1
+      - path: Globby_001
+        weight: 1
+      - path: Globby_002
+        weight: 1
+      - path: Globby_Bones
+        weight: 1
+      - path: Globby_Bones/CenterBone
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks1
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks2
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks3
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks4
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks5
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks6
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks7
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks8
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks9
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks10
+        weight: 1
+      - path: Globby_Bones/CenterBone/Butt
+        weight: 1
+      - path: Globby_Bones/CenterBone/Butt/Tail
+        weight: 1
+      - path: Globby_Bones/CenterBone/Butt/Tail/TailFat
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatBot
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatMid
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatSide_L
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatSide_R
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_L
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_L/Hand2_L
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_R
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_R/Hand2_R
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck/Head
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck/Head/Jaw
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck/Head/UpMouth
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop1
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop2
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop3
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop4
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop5
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop6
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop7
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop8
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Globby_Death
+      takeName: Globby_Death
+      firstFrame: -1
+      lastFrame: 23
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bomb
+        weight: 1
+      - path: Globby
+        weight: 1
+      - path: Globby_001
+        weight: 1
+      - path: Globby_002
+        weight: 1
+      - path: Globby_Bones
+        weight: 1
+      - path: Globby_Bones/CenterBone
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks1
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks2
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks3
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks4
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks5
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks6
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks7
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks8
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks9
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks10
+        weight: 1
+      - path: Globby_Bones/CenterBone/Butt
+        weight: 1
+      - path: Globby_Bones/CenterBone/Butt/Tail
+        weight: 1
+      - path: Globby_Bones/CenterBone/Butt/Tail/TailFat
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatBot
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatMid
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatSide_L
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatSide_R
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_L
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_L/Hand2_L
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_R
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_R/Hand2_R
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck/Head
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck/Head/Jaw
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck/Head/UpMouth
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop1
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop2
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop3
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop4
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop5
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop6
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop7
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop8
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Globby_Idle
+      takeName: Globby_Idle
+      firstFrame: 0
+      lastFrame: 56
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bomb
+        weight: 1
+      - path: Globby
+        weight: 1
+      - path: Globby_001
+        weight: 1
+      - path: Globby_002
+        weight: 1
+      - path: Globby_Bones
+        weight: 1
+      - path: Globby_Bones/CenterBone
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks1
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks2
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks3
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks4
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks5
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks6
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks7
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks8
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks9
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks10
+        weight: 1
+      - path: Globby_Bones/CenterBone/Butt
+        weight: 1
+      - path: Globby_Bones/CenterBone/Butt/Tail
+        weight: 1
+      - path: Globby_Bones/CenterBone/Butt/Tail/TailFat
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatBot
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatMid
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatSide_L
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatSide_R
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_L
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_L/Hand2_L
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_R
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_R/Hand2_R
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck/Head
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck/Head/Jaw
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck/Head/UpMouth
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop1
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop2
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop3
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop4
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop5
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop6
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop7
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop8
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Globby_Scooch
+      takeName: Globby_Scooch
+      firstFrame: 0
+      lastFrame: 28
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bomb
+        weight: 1
+      - path: Globby
+        weight: 1
+      - path: Globby_001
+        weight: 1
+      - path: Globby_002
+        weight: 1
+      - path: Globby_Bones
+        weight: 1
+      - path: Globby_Bones/CenterBone
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks1
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks2
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks3
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks4
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks5
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks6
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks7
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks8
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks9
+        weight: 1
+      - path: Globby_Bones/CenterBone/Bomb_0/FX/Sparks10
+        weight: 1
+      - path: Globby_Bones/CenterBone/Butt
+        weight: 1
+      - path: Globby_Bones/CenterBone/Butt/Tail
+        weight: 1
+      - path: Globby_Bones/CenterBone/Butt/Tail/TailFat
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatBot
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatMid
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatSide_L
+        weight: 1
+      - path: Globby_Bones/CenterBone/FatSide_R
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_L
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_L/Hand2_L
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_R
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Hand1_R/Hand2_R
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck/Head
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck/Head/Jaw
+        weight: 1
+      - path: Globby_Bones/CenterBone/Mid/Neck/Head/UpMouth
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop1
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop2
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop3
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop4
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop5
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop6
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop7
+        weight: 1
+      - path: Globby_Bones/CenterBone/Splatter/Drop8
+        weight: 1
+      - path: Plane
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
