@@ -4,23 +4,8 @@ using System.Collections.Generic;
 
 public class CommandManager : MonoBehaviour {
 
-  public enum CommandType
-  {
-    MOVE,
-    TURN,
-    WAIT
-  }
-
-  protected struct CommandMetadata
-  {
-    public CommandType type;
-    public int speed;
-    public int time;
-    public int rotation;
-  }
-
-
   protected PadManager padManager;
+  protected CommandListManager commandListManager;
   protected List<Command> currentCommands;
 
   protected CommandMetadata newCommand;
@@ -33,6 +18,7 @@ public class CommandManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     padManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PadManager>();
+    commandListManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<CommandListManager>();
 
     newCommand = new CommandMetadata();
 	}
@@ -43,18 +29,21 @@ public class CommandManager : MonoBehaviour {
 
 	}
 
-  public void AddCommand(CommandType type, int speed, int time, int rotation)
+  public void AddCommand(CommandMetadata command)
   {
-    switch (type)
+    switch (command.type)
     {
     case CommandType.MOVE:
-      padManager.AddCommandToCurrentPad(speed, time, false, rotation);
+      padManager.AddCommandToCurrentPad(command.speed, command.time, false, command.rotation);
+      commandListManager.AddCommand(command);
       break;
     case CommandType.TURN:
-      padManager.AddCommandToCurrentPad(0, 2, true, rotation);
+      padManager.AddCommandToCurrentPad(0, 2, true, command.rotation);
+      commandListManager.AddCommand(command);
       break;
     case CommandType.WAIT:
-      padManager.AddCommandToCurrentPad(0, time, false, rotation);
+      padManager.AddCommandToCurrentPad(0, command.time, false, command.rotation);
+      commandListManager.AddCommand(command);
       break;
     }
   }
@@ -118,35 +107,35 @@ public class CommandManager : MonoBehaviour {
   public void MedWait()
   {
     newCommand.time = 2;
-    AddCommand(newCommand.type, newCommand.speed, newCommand.time, newCommand.rotation);
+    AddCommand(newCommand);
     paramStop.SetActive(false);
   }
 
   public void LoWait()
   {
     newCommand.time = 1;
-    AddCommand(newCommand.type, newCommand.speed, newCommand.time, newCommand.rotation);
+    AddCommand(newCommand);
     paramStop.SetActive(false);    
   }
 
   public void HiWait()
   {
     newCommand.time = 3;
-    AddCommand(newCommand.type, newCommand.speed, newCommand.time, newCommand.rotation);
+    AddCommand(newCommand);
     paramStop.SetActive(false);
   }
 
   public void LeftTurn()
   {
     newCommand.rotation = -1;
-    AddCommand(newCommand.type, newCommand.speed, newCommand.time, newCommand.rotation);
+    AddCommand(newCommand);
     paramTurn.SetActive(false);
   }
 
   public void RightTurn()
   {
     newCommand.rotation = 1;
-    AddCommand(newCommand.type, newCommand.speed, newCommand.time, newCommand.rotation);
+    AddCommand(newCommand);
     paramTurn.SetActive(false);
   }
 }
