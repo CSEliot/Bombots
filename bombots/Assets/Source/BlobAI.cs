@@ -26,7 +26,7 @@ public class BlobAI : MonoBehaviour {
 	private float idleDeathTime;
 	private bool toBeDeleted;
 	private float deleteCounter;
-
+	
 	private float delayDeleteTime;
 
 	private int commandListeningToNum;
@@ -56,6 +56,9 @@ public class BlobAI : MonoBehaviour {
 		currentColoredSkin.material = color;
 		currentState = States.Nothing;
 		deltaTime = 0;
+
+		GameObject currentPad = GameObject.Find("GameManager");
+		//currentPad.GetComponent<PadController>().changeColor();
 
 	}
 

@@ -7,6 +7,7 @@ public class PadController : MonoBehaviour {
   public Material padColor;
   public int padIndex;
 
+	
   protected PadManager padManager;
 
   protected List<Command> commands;
