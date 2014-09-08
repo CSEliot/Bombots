@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ChangeLevel : MonoBehaviour {
-	public float loadDelay = 12f;
+	private float loadDelay = 10f;	// switched to private for global override
 
 	private float loadTime = 0f;
 
@@ -14,8 +14,8 @@ public class ChangeLevel : MonoBehaviour {
 		if (loadTime > 0 && Time.time > loadTime) {
 			loadTime = 0;
 			int nextLevel = Application.loadedLevel + 1;
-			if (nextLevel > Application.levelCount)
-				nextLevel = Application.levelCount;
+			if (nextLevel >= Application.levelCount)
+				nextLevel = Application.levelCount-1;
 			Application.LoadLevel(nextLevel);
 		}
 	}
