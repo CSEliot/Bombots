@@ -14,9 +14,14 @@ public class BlobAI : MonoBehaviour {
 
 	private float currentSpeed;
 	private float currentRotation;
+	private float rotateFacing;
+	private float leftOrRight;
+
 
 	enum States { Moving, Rotating, Waiting, Nothing, Victory };
 	private States currentState;
+
+	private bool rotated;
 
 	public List<Command> commandList;
 
@@ -33,6 +38,8 @@ public class BlobAI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		rotateFacing = 0;
+		rotated = true;
 		currentState= States.Nothing;
 		currentSpeed = 0f;
 		currentRotation = 0f;
@@ -71,6 +78,9 @@ public class BlobAI : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		Debug.Log("Rot y is: . . ." + rotateFacing);
+		this.transform.localRotation = Quaternion.AngleAxis(rotateFacing, Vector3.up); // .eulerAngles.Set(0f, transform.rotation.eulerAngles.y + 90f*targetRotation, 0f);
+
 		Debug.Log ("Command Size is: " + commandList.Count);
 		deltaTime += Time.deltaTime;
 
@@ -88,9 +98,11 @@ public class BlobAI : MonoBehaviour {
 				currentSpeed = 0f;
 			}else if(tempCommand.RotationCommand == true){
 				Debug.Log("FOUND A ROTATION COMMAND");
+				rotated = false;
 				currentState = States.Rotating;
 				currentSpeed = 0f;
-				targetRotation = currentRotation + 90*tempCommand.RotationDegree;
+				targetRotation = currentRotation + (90f*tempCommand.RotationDegree);
+				leftOrRight = tempCommand.RotationDegree;
 			}else{
 				currentState = States.Moving;
 				currentSpeed = tempCommand.Speed;
@@ -116,11 +128,15 @@ public class BlobAI : MonoBehaviour {
 				animator.SetBool("isScooching", false);
 				break;
 			case States.Rotating:
-				currentRotation = Mathf.Lerp(currentRotation, targetRotation, (Time.deltaTime*2));
-				this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, currentRotation, this.transform.eulerAngles.z);
-				if (Mathf.Floor(currentRotation) == targetRotation){
-					currentState = States.Nothing;
+				if(!rotated){
+					rotateFacing = (rotateFacing + 90f*leftOrRight)%360;
+					rotated = true;
 				}
+				//currentRotation = Mathf.Lerp(currentRotation, targetRotation, (Time.deltaTime*2));
+				//this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, currentRotation, this.transform.eulerAngles.z);
+				//if (Mathf.Floor(currentRotation) == targetRotation){
+				//	currentState = States.Nothing;
+				//}
 				Debug.Log("State is ROTATING: " + currentRotation + " " + targetRotation);
 				animator.SetBool("isKablooey", false);
 				animator.SetBool("isIdle", false);
