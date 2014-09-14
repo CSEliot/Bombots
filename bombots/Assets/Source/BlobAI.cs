@@ -5,41 +5,36 @@ using System.Collections.Generic;
 
 
 public class BlobAI : MonoBehaviour {
-
+	
 	private float targetRotation;
-
+	
 	public Animator animator;
-
+	
 	public SkinnedMeshRenderer currentColoredSkin;
-
+	
 	private float currentSpeed;
 	private float currentRotation;
 	private float rotateFacing;
 	private float leftOrRight;
-
-
+	
 	enum States { Moving, Rotating, Waiting, Nothing, Victory };
 	private States currentState;
-
-	private bool rotated;
-
+	
 	public List<Command> commandList;
-
+	
 	private float deltaTime;
-
+	
 	private float timeToEnd ; //when the current command ends, =time.now+command length of time
 	private float idleDeathTime;
 	private bool toBeDeleted;
 	private float deleteCounter;
 	
 	private float delayDeleteTime;
-
+	
 	private int commandListeningToNum;
-
+	
 	// Use this for initialization
 	void Start () {
-		rotateFacing = 0;
-		rotated = true;
 		currentState= States.Nothing;
 		currentSpeed = 0f;
 		currentRotation = 0f;
@@ -49,9 +44,9 @@ public class BlobAI : MonoBehaviour {
 		commandList = new List<Command>();
 		deltaTime = Time.deltaTime;
 		commandListeningToNum = 0;
-		idleDeathTime = deltaTime + 5;
+		idleDeathTime = deltaTime + 6;
 	}
-
+	
 	public void assignCommands(List<Command> commandList, Material color){
 		this.commandList.Clear();
 		foreach(Command command in commandList){
@@ -59,32 +54,32 @@ public class BlobAI : MonoBehaviour {
 			Debug.Log(command.ToString());
 		}
 		commandListeningToNum = 0;
-
+		
 		currentColoredSkin.material = color;
 		if (currentState != States.Victory)
 			currentState = States.Nothing;
 		deltaTime = 0;
-
+		
 		GameObject currentPad = GameObject.Find("GameManager");
 		//currentPad.GetComponent<PadController>().changeColor();
-
+		
 	}
-
+	
 	public void victory(GameObject goal) {
 		currentState = States.Victory;
 		currentSpeed = 0;
 		targetRotation = goal.transform.rotation.eulerAngles.y;
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log("Rot y is: . . ." + rotateFacing);
-		this.transform.localRotation = Quaternion.AngleAxis(rotateFacing, Vector3.up); // .eulerAngles.Set(0f, transform.rotation.eulerAngles.y + 90f*targetRotation, 0f);
-
+		if(currentState != States.Rotating){
+			this.transform.localRotation = Quaternion.AngleAxis(rotateFacing, Vector3.up);
+		}
 		Debug.Log ("Command Size is: " + commandList.Count);
 		deltaTime += Time.deltaTime;
-
-
+		
+		
 		//blobs start doing nothing. Then they check their command list but only if there is a command left.
 		if(currentState == States.Nothing && commandListeningToNum < commandList.Count){
 			//Debug.Log("deltaTime is: " + deltaTime + " timeToEnd is: " + timeToEnd);
@@ -98,11 +93,11 @@ public class BlobAI : MonoBehaviour {
 				currentSpeed = 0f;
 			}else if(tempCommand.RotationCommand == true){
 				Debug.Log("FOUND A ROTATION COMMAND");
-				rotated = false;
 				currentState = States.Rotating;
 				currentSpeed = 0f;
-				targetRotation = currentRotation + (90f*tempCommand.RotationDegree);
+				targetRotation = currentRotation + 90*tempCommand.RotationDegree;
 				leftOrRight = tempCommand.RotationDegree;
+				rotateFacing = (rotateFacing + 90f*leftOrRight)%360;
 			}else{
 				currentState = States.Moving;
 				currentSpeed = tempCommand.Speed;
@@ -110,65 +105,68 @@ public class BlobAI : MonoBehaviour {
 			Debug.Log("currentState is: " + currentState);
 			timeToEnd = commandList[commandListeningToNum].Time;
 		}
-
-
+		
+		
 		switch(currentState)
 		{
-			case States.Moving:
-				this.transform.Translate(Vector3.forward*currentSpeed*Time.deltaTime*3);
-				Debug.Log("State is MOVING");
-				animator.SetBool("isKablooey", false);
-				animator.SetBool("isIdle", false);
-				animator.SetBool("isScooching", true);
-				break;
-			case States.Nothing:
-				Debug.Log("State is NOTHING");
+		case States.Moving:
+			this.transform.Translate(Vector3.forward*currentSpeed*Time.deltaTime*3);
+			Debug.Log("State is MOVING");
+			animator.SetBool("isKablooey", false);
+			animator.SetBool("isIdle", false);
+			animator.SetBool("isScooching", true);
+			break;
+		case States.Nothing:
+			this.gameObject.rigidbody.constraints = RigidbodyConstraints.FreezeRotationY | 
+				RigidbodyConstraints.FreezeRotationZ ;
+			Debug.Log("State is NOTHING");
+			animator.SetBool("isKablooey", false);
+			animator.SetBool("isIdle", true);
+			animator.SetBool("isScooching", false);
+			break;
+		case States.Rotating:
+			this.gameObject.rigidbody.freezeRotation = true;
+			currentRotation = Mathf.Lerp(currentRotation, targetRotation, (Time.deltaTime*2));
+			this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, currentRotation, this.transform.eulerAngles.z);
+			if (Mathf.Floor(currentRotation) == targetRotation){
+				currentState = States.Nothing;
+				Debug.Log("ROTATING FINISHED!");
+				this.gameObject.rigidbody.freezeRotation = false;
+			}
+			//Debug.Log("State is ROTATING: " + currentRotation + " " + targetRotation);
+			animator.SetBool("isKablooey", false);
+			animator.SetBool("isIdle", false);
+			animator.SetBool("isScooching", true);
+			break;
+		case States.Waiting:
+			this.gameObject.rigidbody.constraints = RigidbodyConstraints.FreezeRotationY | 
+				RigidbodyConstraints.FreezeRotationZ ;
+			Debug.Log("State is WAITING");
+			animator.SetBool("isKablooey", false);
+			animator.SetBool("isIdle", true);
+			animator.SetBool("isScooching", false);
+			break;
+		case States.Victory:
+			Debug.Log("State is VICTORY");
+			// rotate to align with goal (presumably also toward user)
+			if (Mathf.Abs(currentRotation - targetRotation) > 1){
 				animator.SetBool("isKablooey", false);
 				animator.SetBool("isIdle", true);
 				animator.SetBool("isScooching", false);
-				break;
-			case States.Rotating:
-				if(!rotated){
-					rotateFacing = (rotateFacing + 90f*leftOrRight)%360;
-					rotated = true;
-				}
-				//currentRotation = Mathf.Lerp(currentRotation, targetRotation, (Time.deltaTime*2));
-				//this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, currentRotation, this.transform.eulerAngles.z);
-				//if (Mathf.Floor(currentRotation) == targetRotation){
-				//	currentState = States.Nothing;
-				//}
-				Debug.Log("State is ROTATING: " + currentRotation + " " + targetRotation);
-				animator.SetBool("isKablooey", false);
+				currentRotation = Mathf.Lerp(currentRotation, targetRotation, (Time.deltaTime*2));
+				this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, currentRotation, this.transform.eulerAngles.z);
+			}
+			else {
 				animator.SetBool("isIdle", false);
-				animator.SetBool("isScooching", true);
-				break;
-			case States.Waiting:
-				Debug.Log("State is WAITING");
-				animator.SetBool("isKablooey", false);
-				animator.SetBool("isIdle", true);
-				animator.SetBool("isScooching", false);
-				break;
-			case States.Victory:
-				Debug.Log("State is VICTORY");
-				// rotate to align with goal (presumably also toward user)
-				if (Mathf.Abs(currentRotation - targetRotation) > 1){
-					animator.SetBool("isKablooey", false);
-					animator.SetBool("isIdle", true);
-					animator.SetBool("isScooching", false);
-					currentRotation = Mathf.Lerp(currentRotation, targetRotation, (Time.deltaTime*2));
-					this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, currentRotation, this.transform.eulerAngles.z);
-				}
-				else {
-					animator.SetBool("isIdle", false);
-					animator.SetBool("isWin", true);
-				}
-				currentState = States.Victory;
-				break;
-			default:
-				Debug.Log("State not found. . .");
-				break;
+				animator.SetBool("isWin", true);
+			}
+			currentState = States.Victory;
+			break;
+		default:
+			Debug.Log("State not found. . .");
+			break;
 		}
-
+		
 		//if the final command has ended, begin to idle
 		if(deltaTime > timeToEnd && currentState != States.Nothing && currentState != States.Victory){
 			Debug.Log("Setting State to nothing");
@@ -184,7 +182,7 @@ public class BlobAI : MonoBehaviour {
 			animator.SetBool("isIdle", true);
 			animator.SetBool("isScooching", false);
 		} 
-
+		
 		//if the slime idles for too long, KABLOOEY!
 		if(currentState == States.Nothing && idleDeathTime <= deltaTime){
 			Debug.Log("KABLOOEY!!!");
@@ -196,7 +194,7 @@ public class BlobAI : MonoBehaviour {
 			deleteCounter = Time.deltaTime + 3;
 			idleDeathTime = 1000000f; // so that THIS function isn't called since idle will always be > deltatime
 		}
-
+		
 		if(toBeDeleted){
 			//Debug.Log("Waiting to be deleted: " + deleteCounter + " deltaTime: " + deltaTime);
 			if(deltaTime > deleteCounter){
@@ -205,7 +203,6 @@ public class BlobAI : MonoBehaviour {
 		}
 	}
 }
-
 
 
 
